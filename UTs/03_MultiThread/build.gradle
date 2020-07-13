@@ -1,0 +1,91 @@
+apply plugin: 'com.android.application'
+
+String FORGE_ROOT = "C:/Users/sskap/src/The-Forge/"
+String UT_NAME = "03_MultiThread"
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.0"
+
+    defaultConfig {
+        applicationId "com.forge.unittest.MultiThread"
+        minSdkVersion 26
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        externalNativeBuild {
+            cmake {
+                cppFlags '-std=c++14 -frtti -fexceptions'
+                arguments '-DANDROID_PLATFORM=android-26',
+                          '-DANDROID_TOOLCHAIN=clang',
+                          '-DANDROID_STL=c++_static'
+                abiFilters 'arm64-v8a'
+            }
+        }
+        ndk {
+            abiFilters 'arm64-v8a'
+        }
+
+        android.applicationVariants.all { variant ->
+            variant.mergeAssets.doLast {
+                copy {
+                    from("${FORGE_ROOT}/Examples_3/Unit_Tests/UnitTestResources") {
+                        include "Textures/Skybox_*.ktx"
+                        include "Textures/Palette_*.ktx"
+                        include "Textures/circlepad.ktx"
+                        include "Fonts/TitilliumText/*.*"
+                    }
+                    into("${buildDir}/intermediates/merged_assets/${variant.dirName}/out")
+                }
+                copy {
+                    from("${FORGE_ROOT}/Middleware_3/UI") {
+                        include "Shaders/Vulkan/*.*"
+                    }
+                    into("${buildDir}/intermediates/merged_assets/${variant.dirName}/out")
+                }
+                copy {
+                    from("${FORGE_ROOT}/Middleware_3/Text") {
+                        include "Shaders/Vulkan/*.*"
+                    }
+                    into("${buildDir}/intermediates/merged_assets/${variant.dirName}/out")
+                }
+                copy {
+                    from("${FORGE_ROOT}/Examples_3/Unit_Tests/src/${UT_NAME}") {
+                        include "Shaders/Vulkan/*.*"
+                    }
+                    into("${buildDir}/intermediates/merged_assets/${variant.dirName}/out")
+                }
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            debuggable true
+            jniDebuggable true
+            //proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
+
+//    sourceSets {
+//        main {
+//            jniLibs {
+//                srcDir "C:/Users/sskap/AppData/Local/Android/Sdk/ndk/21.2.6472646/sources/third_party/vulkan/src/build-android/jniLibs"
+//            }
+//        }
+//    }
+
+    ndkVersion = '21.3.6528147'
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+}

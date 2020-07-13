@@ -1,0 +1,1 @@
+python -u "../The-Forge/PyBuild.py" --defines --clean --android --memtracking
