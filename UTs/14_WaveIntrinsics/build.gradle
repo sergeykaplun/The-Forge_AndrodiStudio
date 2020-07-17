@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 
 String FORGE_ROOT = "C:/Users/sskap/src/The-Forge/"
-String UT_NAME = "15_Transparency"
+String UT_NAME = "14_WaveIntrinsics"
 
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.0"
 
     defaultConfig {
-        applicationId "com.forge.unittest.Transparency"
+        applicationId "com.forge.unittest.WaveIntrinsics"
         minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
@@ -31,14 +31,10 @@ android {
             variant.mergeAssets.doLast {
                 copy {
                     from("${FORGE_ROOT}/Examples_3/Unit_Tests/UnitTestResources") {
-                        include "Textures/skybox/hw_sahara/sahara_*.ktx"
+                        include "Textures/Skybox_*.ktx"
+                        include "Textures/Palette_*.ktx"
                         include "Textures/circlepad.ktx"
-                        include "Textures/grid.ktx"
                         include "Fonts/TitilliumText/*.*"
-                        include "Meshes/cube.gltf"
-                        include "Meshes/sphere.gltf"
-                        include "Meshes/plane.gltf"
-                        include "Meshes/lion.gltf"
                     }
                     into("${buildDir}/intermediates/merged_assets/${variant.dirName}/out")
                 }

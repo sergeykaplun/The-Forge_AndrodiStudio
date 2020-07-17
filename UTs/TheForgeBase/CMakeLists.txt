@@ -1,12 +1,19 @@
 cmake_minimum_required(VERSION 3.4.1)
 set(FORGE_ROOT ../../../The-Forge/)
 
+add_definitions("-DVK_USE_PLATFORM_ANDROID_KHR"
+                "-DANDROID_ARM_NEON"
+                "-DANDROID"
+                "-DVULKAN"
+                "-DDEBUG")
+
 file(GLOB RENDER_COMMON_SRC ${FORGE_ROOT}Common_3/Renderer/*.cpp)
 file(GLOB RENDER_VULKAN_SRC ${FORGE_ROOT}Common_3/Renderer/Vulkan/*.cpp)
 file(GLOB OS_ANDROID_SRC ${FORGE_ROOT}Common_3/OS/Android/*.cpp)
 file(GLOB OS_CAMERA_SRC ${FORGE_ROOT}Common_3/OS/Camera/*.cpp)
 file(GLOB OS_CORE_SRC ${FORGE_ROOT}Common_3/OS/Core/*.cpp)
 file(GLOB OS_FS_SRC ${FORGE_ROOT}Common_3/OS/FileSystem/*.cpp)
+#file(GLOB OS_IMAGE_SRC ${FORGE_ROOT}Common_3/OS/Image/*.cpp)
 file(GLOB OS_INPUT_SRC ${FORGE_ROOT}Common_3/OS/Input/*.cpp)
 file(GLOB OS_LOGGING_SRC ${FORGE_ROOT}Common_3/OS/Logging/*.cpp)
 file(GLOB OS_MEMTRACK_SRC ${FORGE_ROOT}Common_3/OS/MemoryTracking/*.cpp)
@@ -32,7 +39,7 @@ file(GLOB GAINPUT_PAD_SRC ${FORGE_ROOT}Common_3/ThirdParty/OpenSource/gainput/li
 file(GLOB GAINPUT_MOUSE_SRC ${FORGE_ROOT}Common_3/ThirdParty/OpenSource/gainput/lib/source/gainput/mouse/*.cpp)
 file(GLOB GAINPUT_TOUCH_SRC ${FORGE_ROOT}Common_3/ThirdParty/OpenSource/gainput/lib/source/gainput/touch/*.cpp)
 
-add_library(renderer_lib STATIC ${RENDER_VULKAN_SRC}  ${RENDER_COMMON_SRC} ${OS_CORE_SRC} ${SPIRV_TOOLS_SRC} ${SPIRV_CROSS_SRC})
+add_library(renderer_lib STATIC ${RENDER_VULKAN_SRC}  ${RENDER_COMMON_SRC} ${OS_CORE_SRC} ${SPIRV_TOOLS_SRC} ${SPIRV_CROSS_SRC} ${OS_FS_SRC})
 add_library(memtrack_lib STATIC ${OS_MEMTRACK_SRC})
 add_library(eastl_lib STATIC ${EASTL_SRC} ${EASTDC_SRC})
 add_library(log_lib STATIC ${OS_LOGGING_SRC})
