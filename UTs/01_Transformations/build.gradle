@@ -38,24 +38,47 @@ android {
                     }
                     into("${buildDir}/intermediates/merged_assets/${variant.dirName}/out")
                 }
+
                 copy {
-                    from("${FORGE_ROOT}/Middleware_3/UI") {
-                        include "Shaders/Vulkan/*.*"
+                    from("${FORGE_ROOT}/Examples_3/Unit_Tests/UnitTestResources/Textures") {
+                        include "LA_Helipad.ktx"
                     }
                     into("${buildDir}/intermediates/merged_assets/${variant.dirName}/out")
                 }
+
                 copy {
-                    from("${FORGE_ROOT}/Middleware_3/Text") {
-                        include "Shaders/Vulkan/*.*"
+                    from("${FORGE_ROOT}/Middleware_3/UI/Shaders/Vulkan") {
+                        include "*.*"
                     }
-                    into("${buildDir}/intermediates/merged_assets/${variant.dirName}/out")
+                    into("${buildDir}/intermediates/merged_assets/${variant.dirName}/out/Shaders")
                 }
                 copy {
-                    from("${FORGE_ROOT}/Examples_3/Unit_Tests/src/${UT_NAME}") {
-                        include "Shaders/Vulkan/*.*"
+                    from("${FORGE_ROOT}/Middleware_3/Text/Shaders/Vulkan") {
+                        include "*.*"
                     }
-                    into("${buildDir}/intermediates/merged_assets/${variant.dirName}/out")
+                    into("${buildDir}/intermediates/merged_assets/${variant.dirName}/out/Shaders")
                 }
+                copy {
+                    from("${FORGE_ROOT}/Examples_3/Unit_Tests/src/${UT_NAME}/Shaders/Vulkan") {
+                        include "*.*"
+                    }
+                    into("${buildDir}/intermediates/merged_assets/${variant.dirName}/out/Shaders")
+                }
+//                copy {
+//                    from("${FORGE_ROOT}/Art/SanMiguel_3") {
+//                        include "Textures/daytime.ktx"
+//                    }
+//                    into("${buildDir}/intermediates/merged_assets/${variant.dirName}/out")
+//                }
+//                copy {
+//                    from("${FORGE_ROOT}/Examples_3/Unit_Tests/src/10_PixelProjectedReflections") {
+//                        include "Shaders/Vulkan/panoToCube.comp"
+//                        include "Shaders/Vulkan/skybox.vert"
+//                        include "Shaders/Vulkan/skybox.frag"
+////                        include "Shaders/Vulkan/skybox.*"
+//                    }
+//                    into("${buildDir}/intermediates/merged_assets/${variant.dirName}/out")
+//                }
             }
         }
     }
@@ -75,13 +98,13 @@ android {
         }
     }
 
-//    sourceSets {
-//        main {
-//            jniLibs {
-//                srcDir "C:/Users/sskap/AppData/Local/Android/Sdk/ndk/21.2.6472646/sources/third_party/vulkan/src/build-android/jniLibs"
-//            }
-//        }
-//    }
+    sourceSets {
+        main {
+            jniLibs {
+                srcDir "C:/Users/sskap/AppData/Local/Android/Sdk/ndk/21.3.6528147/sources/third_party/vulkan/src/build-android/jniLibs"
+            }
+        }
+    }
 
     //ndkVersion = '21.2.6472646'
     ndkVersion = '21.3.6528147'

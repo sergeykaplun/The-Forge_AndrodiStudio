@@ -42,25 +42,25 @@ android {
                     from("${FORGE_ROOT}/Examples_3/Unit_Tests/UnitTestResources/ZipFiles") {
                         include "28-ZipFileSystem.zip"
                     }
-                    into("${buildDir}/intermediates/merged_assets/${variant.dirName}/out")
+                    into("${buildDir}/intermediates/merged_assets/${variant.dirName}/out/ZipFiles")
                 }
                 copy {
-                    from("${FORGE_ROOT}/Middleware_3/UI") {
-                        include "Shaders/Vulkan/*.*"
+                    from("${FORGE_ROOT}/Middleware_3/UI/Shaders/Vulkan") {
+                        include "*.*"
                     }
-                    into("${buildDir}/intermediates/merged_assets/${variant.dirName}/out")
+                    into("${buildDir}/intermediates/merged_assets/${variant.dirName}/out/Shaders")
                 }
                 copy {
-                    from("${FORGE_ROOT}/Middleware_3/Text") {
-                        include "Shaders/Vulkan/*.*"
+                    from("${FORGE_ROOT}/Middleware_3/Text/Shaders/Vulkan") {
+                        include "*.*"
                     }
-                    into("${buildDir}/intermediates/merged_assets/${variant.dirName}/out")
+                    into("${buildDir}/intermediates/merged_assets/${variant.dirName}/out/Shaders")
                 }
                 copy {
-                    from("${FORGE_ROOT}/Examples_3/Unit_Tests/src/${UT_NAME}") {
-                        include "Shaders/Vulkan/*.*"
+                    from("${FORGE_ROOT}/Examples_3/Unit_Tests/src/${UT_NAME}/Shaders/Vulkan") {
+                        include "*.*"
                     }
-                    into("${buildDir}/intermediates/merged_assets/${variant.dirName}/out")
+                    into("${buildDir}/intermediates/merged_assets/${variant.dirName}/out/Shaders")
                 }
             }
         }

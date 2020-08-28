@@ -72,13 +72,13 @@ android {
         }
     }
 
-//    sourceSets {
-//        main {
-//            jniLibs {
-//                srcDir "C:/Users/sskap/AppData/Local/Android/Sdk/ndk/21.2.6472646/sources/third_party/vulkan/src/build-android/jniLibs"
-//            }
-//        }
-//    }
+    sourceSets {
+        main {
+            jniLibs {
+                srcDir "C:/Users/sskap/AppData/Local/Android/Sdk/ndk/21.3.6528147/sources/third_party/vulkan/src/build-android/jniLibs"
+            }
+        }
+    }
 
     //ndkVersion = '21.2.6472646'
     ndkVersion = '21.3.6528147'

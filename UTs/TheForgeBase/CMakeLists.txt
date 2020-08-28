@@ -7,6 +7,8 @@ add_definitions("-DVK_USE_PLATFORM_ANDROID_KHR"
                 "-DVULKAN"
                 "-DDEBUG")
 
+#add_subdirectory(${FORGE_ROOT}Common_3/ThirdParty/OpenSource/ozz-animation/src ${CMAKE_SOURCE_DIR}/build)
+
 file(GLOB RENDER_COMMON_SRC ${FORGE_ROOT}Common_3/Renderer/*.cpp)
 file(GLOB RENDER_VULKAN_SRC ${FORGE_ROOT}Common_3/Renderer/Vulkan/*.cpp)
 file(GLOB OS_ANDROID_SRC ${FORGE_ROOT}Common_3/OS/Android/*.cpp)
@@ -38,6 +40,13 @@ file(GLOB GAINPUT_KBD_SRC ${FORGE_ROOT}Common_3/ThirdParty/OpenSource/gainput/li
 file(GLOB GAINPUT_PAD_SRC ${FORGE_ROOT}Common_3/ThirdParty/OpenSource/gainput/lib/source/gainput/pad/*.cpp)
 file(GLOB GAINPUT_MOUSE_SRC ${FORGE_ROOT}Common_3/ThirdParty/OpenSource/gainput/lib/source/gainput/mouse/*.cpp)
 file(GLOB GAINPUT_TOUCH_SRC ${FORGE_ROOT}Common_3/ThirdParty/OpenSource/gainput/lib/source/gainput/touch/*.cpp)
+file(GLOB ANIMATION_SRC ${FORGE_ROOT}Middleware_3/Animation/*.cpp)
+file(GLOB LUAMNGR_SRC ${FORGE_ROOT}Middleware_3/LUA/*.cpp ${FORGE_ROOT}Common_3/ThirdParty/OpenSource/lua-5.3.5/src/*.c)
+#file(GLOB_RECURSE OZZ_SRC ${FORGE_ROOT}Common_3/ThirdParty/OpenSource/ozz-animation/src/*.cc ${FORGE_ROOT}Common_3/ThirdParty/OpenSource/ozz-animation/src/*.h)
+
+add_library(luamngr_lib ${LUAMNGR_SRC})
+#add_library(animation_lib ${ANIMATION_SRC} ${OZZ_SRC})
+add_library(animation_lib ${ANIMATION_SRC})
 
 add_library(renderer_lib STATIC ${RENDER_VULKAN_SRC}  ${RENDER_COMMON_SRC} ${OS_CORE_SRC} ${SPIRV_TOOLS_SRC} ${SPIRV_CROSS_SRC} ${OS_FS_SRC})
 add_library(memtrack_lib STATIC ${OS_MEMTRACK_SRC})
@@ -56,6 +65,14 @@ add_library(lib_shaderc STATIC IMPORTED)
 set_target_properties(lib_shaderc PROPERTIES IMPORTED_LOCATION
         ${ANDROID_NDK}/sources/third_party/shaderc/libs/c++_shared/arm64-v8a/libshaderc.a)
 
+
+add_library(ozz_animation_lib STATIC IMPORTED)
+set_target_properties(ozz_animation_lib PROPERTIES IMPORTED_LOCATION
+        ${CMAKE_SOURCE_DIR}/../../libs/libozz_animation.a)
+add_library(ozz_base_lib STATIC IMPORTED)
+set_target_properties(ozz_base_lib PROPERTIES IMPORTED_LOCATION
+        ${CMAKE_SOURCE_DIR}/../../libs/libozz_base.a)
+
 include_directories(${ANDROID_NDK}/sources/android/native_app_glue)
 include_directories(${ANDROID_NDK}/sources/third_party/shaderc/libshaderc/include)
 include_directories(${FORGE_ROOT}Common_3/ThirdParty/OpenSource/gainput/lib/include)
@@ -71,4 +88,8 @@ target_link_libraries(  theforgebase
                         profiler_lib
                         input_lib
                         ui_lib
-                        lib_shaderc)
+                        lib_shaderc
+                        ozz_animation_lib
+                        ozz_base_lib
+                        animation_lib
+                        luamngr_lib)
